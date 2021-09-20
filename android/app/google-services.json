@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1019458345106",
+    "project_id": "gym-magement",
+    "storage_bucket": "gym-magement.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019458345106:android:8e595cc581d7bb339a6e4b",
+        "android_client_info": {
+          "package_name": "com.gym"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1019458345106-t20t4991fn3pttki7l7tlrjccnd3fq0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGrHUZ50IA9Mp0QZD5GH0BZsfvW--2oXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1019458345106-t20t4991fn3pttki7l7tlrjccnd3fq0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019458345106:android:756c585a56c8cc2f9a6e4b",
+        "android_client_info": {
+          "package_name": "com.gym_management"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1019458345106-t20t4991fn3pttki7l7tlrjccnd3fq0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGrHUZ50IA9Mp0QZD5GH0BZsfvW--2oXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1019458345106-t20t4991fn3pttki7l7tlrjccnd3fq0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
