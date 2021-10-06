@@ -111,7 +111,7 @@ const MemberSignUp = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#1545a8',
+    backgroundColor: '#0db6c2',
     justifyContent: 'center',
     height: 800,
   },

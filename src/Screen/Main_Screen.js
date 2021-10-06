@@ -16,10 +16,10 @@ const Main_screen = () => {
         <View style={styles.body}>
           <Image
             style={styles.sectionContainer}
-            // source={require('../assest/Webp.net-resizeimage-removebg-preview.png')}
+            source={require('../asset/lastlast.png')}
           />
           <View style={styles.secondText}>
-            <ActivityIndicator size="large" color="black" />
+            <ActivityIndicator size="large" color="#0db6c2" />
           </View>
         </View>
       </ScrollView>
@@ -29,15 +29,16 @@ const Main_screen = () => {
 
 const styles = StyleSheet.create({
   body: {
-    // backgroundColor: 'black',
+    height: 750,
+    justifyContent: 'center',
   },
   sectionContainer: {
-    marginTop: '70%',
-    width: '100%',
-    height: 100,
+    width: '80%',
+    height: 93,
+    alignSelf: 'center',
   },
   secondText: {
-    marginTop: '2%',
+    marginTop: '10%',
   },
 });
 

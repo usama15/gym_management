@@ -11,12 +11,13 @@ const AppBar = () => {
   return (
     <Appbar.Header theme={{colors: {primary: 'white'}}}>
       <Appbar.Action icon="menu" />
-        <Image style={styles.logo} source={require('../asset/gymlogo.png')}/>
+      <Image style={styles.logo} source={require('../asset/lastlast.png')} />
       <Appbar.Action
         icon="logout"
         onPress={async () => {
+          await auth().signOut();
           await AsyncStorage.setItem('@login', 'false').then(() =>
-            navigation.navigate('Login'),
+            navigation.navigate('Home'),
           );
         }}
       />
@@ -26,10 +27,10 @@ const AppBar = () => {
 
 const styles = StyleSheet.create({
   logo: {
-    width: '58%',
+    width: '50%',
     height: '100%',
-    marginLeft: '5%',
-    marginRight: '10%',
+    marginLeft: '10%',
+    marginRight: '14%',
   },
 });
 

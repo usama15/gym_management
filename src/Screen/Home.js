@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 10,
-    backgroundColor: '#0345bb',
+    backgroundColor: '#0db6c2',
     width: '90%',
     height: 300,
     alignSelf: 'center',
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   btn: {
     width: '50%',
     marginTop: '5%',
-    backgroundColor: '#7c808c',
+    backgroundColor: '#070707',
   },
 });
 

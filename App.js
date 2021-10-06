@@ -17,7 +17,14 @@ import TrainerSignUp from './src/Component/TrainerSignup';
 import MemberLogin from './src/Component/MemberLogin';
 import MemberSignUp from './src/Component/MemberSignup';
 import BottomNav from './src/Component/BottomNav';
-// import Home from './src/Screen/Home'
+import Home from './src/Screen/Home';
+import AbsWorkout from './src/Screen/AbsWorkout';
+import AvailableTrainer from './src/Screen/AvailableTrainer';
+import CarodicExecrise from './src/Screen/CarodicExecrise';
+import ChestWorkout from './src/Screen/ChestWorkout';
+import LegWorkout from './src/Screen/LegWorkout';
+import MusclesWorkout from './src/Screen/MusclesWorkout';
+// import Main_screen from "./src/Screen/Main_Screen";
 const App = () => {
   const Stack = createStackNavigator();
   return (
@@ -53,31 +60,41 @@ const App = () => {
           component={BottomNav}
           options={{headerMode: 'none', headerShown: false}}
         />
-        {/*<Stack.Screen*/}
-        {/*  name="Location"*/}
-        {/*  component={Location}*/}
-        {/*  options={{headerMode: 'none', headerShown: false}}*/}
-        {/*/>*/}
-        {/*<Stack.Screen*/}
-        {/*  name="About"*/}
-        {/*  component={About}*/}
-        {/*  options={{headerMode: 'none', headerShown: false}}*/}
-        {/*/>*/}
-        {/*<Stack.Screen*/}
-        {/*  name="ContactUs"*/}
-        {/*  component={ContactUs}*/}
-        {/*  options={{headerMode: 'none', headerShown: false}}*/}
-        {/*/>*/}
-        {/*<Stack.Screen*/}
-        {/*  name="GulCafe"*/}
-        {/*  component={GulCafe}*/}
-        {/*  options={{headerMode: 'none', headerShown: false}}*/}
-        {/*/>*/}
-        {/*<Stack.Screen*/}
-        {/*  name="Other"*/}
-        {/*  component={OtherAmenites}*/}
-        {/*  options={{headerMode: 'none', headerShown: false}}*/}
-        {/*/>*/}
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{headerMode: 'none', headerShown: false}}
+        />
+        <Stack.Screen
+          name="AbsWorkout"
+          component={AbsWorkout}
+          options={{headerMode: 'none', headerShown: false}}
+        />
+        <Stack.Screen
+          name="AvailableTrainer"
+          component={AvailableTrainer}
+          options={{headerMode: 'none', headerShown: false}}
+        />
+        <Stack.Screen
+          name="CarodicExecrise"
+          component={CarodicExecrise}
+          options={{headerMode: 'none', headerShown: false}}
+        />
+        <Stack.Screen
+          name="ChestWorkout"
+          component={ChestWorkout}
+          options={{headerMode: 'none', headerShown: false}}
+        />
+        <Stack.Screen
+          name="LegWorkout"
+          component={LegWorkout}
+          options={{headerMode: 'none', headerShown: false}}
+        />
+        <Stack.Screen
+          name="MusclesWorkout"
+          component={MusclesWorkout}
+          options={{headerMode: 'none', headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
