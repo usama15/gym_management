@@ -15,8 +15,8 @@ const MainScreen = () => {
   let navigation = useNavigation();
   return (
     <SafeAreaView>
+      <Appbar />
       <ScrollView>
-        <Appbar />
         <View>
           <TouchableOpacity
             style={styles.card}
@@ -74,7 +74,7 @@ const MainScreen = () => {
             </ImageBackground>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.card,{marginBottom:'5%'}]}
+            style={[styles.card, {marginBottom: '5%'}]}
             onPress={() => navigation.navigate('AvailableTrainer')}>
             <ImageBackground
               style={styles.img}

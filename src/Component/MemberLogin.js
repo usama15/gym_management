@@ -9,142 +9,101 @@ import {
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TextInput} from 'react-native-paper';
+import firestore from '@react-native-firebase/firestore';
+import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {loginUser} from '../../store/userReducer';
 
-export default class MemberLogin extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      password: '',
-      isLoading: false,
-    };
-  }
-
-  updateInputVal = (val, prop) => {
-    const state = this.state;
-    state[prop] = val;
-    this.setState(state);
-  };
-
-  //const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  //let reg = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
-
-  userLogin = async () => {
-    if (this.state.email === '' && this.state.password === '') {
-      alert('Enter Your Email and Password! ');
-    } else if (this.state.email === '') {
-      alert('Enter your Email! abc123@example.com ');
-      this.setState({
-        isLoading: false,
-        email: '',
-        password: '',
-      });
-    } else if (this.state.password === '') {
-      alert('Enter your Password!');
-    }
-    // else if (
-    //   this.state.email === 'admin123@gmail.com' &&
-    //   this.state.password === 'Admin123'
-    // ) {
-    //   alert('Admin logged-in successfully!');
-    //   await AsyncStorage.setItem('@login', true).then(() =>
-    //     this.props.navigation.navigate('BottomNav'),
-    //   );
-    //
-    //   this.setState({
-    //     email: '',
-    //     password: '',
-    //   });
-    // }
-    else {
-      auth()
-        .signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then(async res => {
-          console.log(res);
-          alert('User logged-in successfully!');
-          this.setState({
-            email: '',
-            password: '',
+const MemberLogin = () => {
+  const Navigation = useNavigation();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [post, setPost] = React.useState([]);
+  const dispatch = useDispatch();
+  const userLogin = () => {
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(
+        firestore()
+          .collection('Member')
+          .onSnapshot(snapshot => {
+            const newPost = snapshot.docs.map(doc => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+            dispatch(loginUser(newPost.filter(x => x.email === email)));
+            setPost(newPost.filter(x => x.email === email));
+          }),
+      )
+      .then(async () => {
+        if (post) {
+          post.map(post => {
+            if (post.email !== email) {
+              alert('You are not Member');
+            } else if (post.email === email) {
+              Navigation.navigate('BottomNav');
+              console.log('yoy are member');
+            }
           });
-          await AsyncStorage.setItem('@login', 'true').then(() =>
-            this.props.navigation.navigate('BottomNav'),
-          );
-        })
-
-        .catch(function (e) {
-          alert(e);
-        });
-    }
+        }
+      })
+      .catch(function (e) {
+        alert(e);
+      });
   };
+  // console.log(post)
+  return (
+    <View style={styles.container1}>
+      <Text style={styles.logo1}> Member Login </Text>
 
-  render() {
-    if (this.state.isLoading) {
-      return (
-        <View style={styles.preloader}>
-          <ActivityIndicator size="large" color="#9D0F15" />
-        </View>
-      );
-    }
-    // GoogleSignin.configure({
-    //   webClientId:
-    //     '465123482645-de4jal09udvm9muml2qei7av445029e1.apps.googleusercontent.com',
-    // });
-
-    return (
-      <View style={styles.container1}>
-        <Text style={styles.logo1}> Member Login </Text>
-
-        <View>
-          <Text />
-        </View>
-
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.textInput1}
-            label="Email"
-            mode="outlined"
-            value={this.state.email}
-            theme={{colors: {text: 'black', primary: '#0a217a'}}}
-            onChangeText={val => this.updateInputVal(val, 'email')}
-          />
-        </View>
-
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.textInput1}
-            mode="outlined"
-            label="Password"
-            value={this.state.password}
-            onChangeText={val => this.updateInputVal(val, 'password')}
-            maxLength={15}
-            theme={{colors: {text: 'black', primary: '#0a217a'}}}
-            secureTextEntry={true}
-          />
-        </View>
-        <View>
-          <Text />
-        </View>
-        <View>
-          <Text />
-        </View>
-
-        <TouchableOpacity
-          style={styles.loginBtn1}
-          onPress={() => this.userLogin()}>
-          <Text style={{fontWeight: 'bold'}}>LOGIN</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.loginBtn1}
-          onPress={() => this.props.navigation.navigate('memberSignup')}>
-          <Text style={({fontfamily: 'poppins'}, {fontWeight: 'bold'})}>
-            SIGNUP
-          </Text>
-        </TouchableOpacity>
+      <View>
+        <Text />
       </View>
-    );
-  }
-}
+
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.textInput1}
+          label="Email"
+          mode="outlined"
+          value={email}
+          theme={{colors: {text: 'black', primary: '#0a217a'}}}
+          onChangeText={val => setEmail(val)}
+        />
+      </View>
+
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.textInput1}
+          mode="outlined"
+          label="Password"
+          value={password}
+          onChangeText={val => setPassword(val)}
+          maxLength={15}
+          theme={{colors: {text: 'black', primary: '#0a217a'}}}
+          secureTextEntry={true}
+        />
+      </View>
+      <View>
+        <Text />
+      </View>
+      <View>
+        <Text />
+      </View>
+
+      <TouchableOpacity style={styles.loginBtn1} onPress={() => userLogin()}>
+        <Text style={{fontWeight: 'bold'}}>LOGIN</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.loginBtn1}
+        onPress={() => Navigation.navigate('memberSignup')}>
+        <Text style={({fontfamily: 'poppins'}, {fontWeight: 'bold'})}>
+          SIGNUP
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -260,3 +219,5 @@ const styles = StyleSheet.create({
     shadowColor: '#D49A9A',
   },
 });
+
+export default MemberLogin;

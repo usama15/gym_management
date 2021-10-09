@@ -26,6 +26,7 @@ const MemberSignUp = () => {
         name: name,
         phone: phone,
         gvalue: gvalue,
+        category: 'Member',
       })
       .then({
         setName: setName(null),

@@ -24,12 +24,13 @@ import CarodicExecrise from './src/Screen/CarodicExecrise';
 import ChestWorkout from './src/Screen/ChestWorkout';
 import LegWorkout from './src/Screen/LegWorkout';
 import MusclesWorkout from './src/Screen/MusclesWorkout';
+import TBottomNav from './src/Component/TBottomNav';
 // import Main_screen from "./src/Screen/Main_Screen";
 const App = () => {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="BottomNav">
+      <Stack.Navigator initialRouteName="Splash">
         <Stack.Screen
           name="Splash"
           component={Splash}
@@ -58,6 +59,11 @@ const App = () => {
         <Stack.Screen
           name="BottomNav"
           component={BottomNav}
+          options={{headerMode: 'none', headerShown: false}}
+        />
+        <Stack.Screen
+          name="TBottomNav"
+          component={TBottomNav}
           options={{headerMode: 'none', headerShown: false}}
         />
         <Stack.Screen

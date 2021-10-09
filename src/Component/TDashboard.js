@@ -7,9 +7,9 @@ import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 
-const Package = () => {
+const TDashboard = () => {
   const navigation = useNavigation();
-  const userData = useSelector(state => state.user.initialState);
+  const userData = useSelector(state => state.trainer.initialState);
   return (
     <SafeAreaView>
       <ScrollView>
@@ -42,6 +42,11 @@ const Package = () => {
             <View style={styles.NameD}>
               <Text style={styles.text}>Phone No</Text>
               <Text style={styles.text}>{userData.phone}</Text>
+            </View>
+            <Divider style={styles.dev} />
+            <View style={styles.NameD}>
+              <Text style={styles.text}>Trainer Type</Text>
+              <Text style={styles.text}>{userData.value}</Text>
             </View>
             <Divider style={styles.dev} />
             <Button
@@ -90,8 +95,8 @@ const styles = StyleSheet.create({
     marginTop: '10%',
     width: '40%',
     alignSelf: 'center',
-    backgroundColor:'#0db6c2',
+    backgroundColor: '#0db6c2',
   },
 });
 
-export default Package;
+export default TDashboard;

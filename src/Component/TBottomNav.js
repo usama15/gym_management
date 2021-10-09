@@ -1,11 +1,11 @@
 import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import Package from './Package';
-import AddPackage from './AddPackage';
+import ClientList from './ClientList';
 import MainScreen from './MainScreen';
+import TDashboard from './TDashboard';
 
-export default function BottomNav() {
+export default function TBottomNav() {
   const Tab = createMaterialBottomTabNavigator();
   return (
     <Tab.Navigator
@@ -14,7 +14,7 @@ export default function BottomNav() {
       barStyle={{backgroundColor: 'white'}}>
       <Tab.Screen
         name="Addpackage"
-        component={AddPackage}
+        component={ClientList}
         options={{
           headerMode: 'none',
           headerShown: false,
@@ -42,13 +42,17 @@ export default function BottomNav() {
       />
       <Tab.Screen
         name="Package"
-        component={Package}
+        component={TDashboard}
         options={{
           headerMode: 'none',
           headerShown: false,
           tabBarLabel: 'Dashboard',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="view-dashboard" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="view-dashboard"
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
