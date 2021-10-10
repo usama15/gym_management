@@ -17,7 +17,7 @@ const MainScreen = () => {
     <SafeAreaView>
       <Appbar />
       <ScrollView>
-        <View>
+        <View style={styles.main}>
           <TouchableOpacity
             style={styles.card}
             onPress={() => navigation.navigate('MusclesWorkout')}>
@@ -96,6 +96,15 @@ const styles = StyleSheet.create({
     height: 130,
     alignSelf: 'center',
     marginTop: '5%',
+    borderRadius: 10,
+    shadowColor: '#000000',
+    shadowOpacity: 1,
+    elevation: 10,
+    shadowOffset: {width: 1, height: 5},
+    shadowRadius: 10,
+  },
+  main: {
+    marginBottom: '11%',
   },
   img: {
     height: '100%',
