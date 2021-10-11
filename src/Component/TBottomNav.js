@@ -18,10 +18,10 @@ export default function TBottomNav() {
         options={{
           headerMode: 'none',
           headerShown: false,
-          tabBarLabel: 'Add Package',
+          tabBarLabel: 'Client List',
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons
-              name="plus-circle-outline"
+              name="window-maximize"
               color={color}
               size={26}
             />
