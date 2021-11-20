@@ -35,7 +35,7 @@ const MemberSignUp = () => {
         setPassword: setPassword(null),
         setConfirmPassword: setConfirmPassword(null),
         setPhone: setPhone(null),
-      });
+      }).then(navigation.navigate('memberLogin'))
   };
   return (
     <SafeAreaView>

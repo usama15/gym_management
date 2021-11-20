@@ -10,10 +10,11 @@ import {
 import AppBar from './Appbar';
 import {Card} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
+import {useSelector} from 'react-redux';
 
 const ClientList = () => {
   const [post, setPost] = React.useState([]);
-
+  const userData = useSelector(state => state.trainer.initialState);
   React.useEffect(async () => {
     await firestore()
       .collection('addpackage')
@@ -25,12 +26,14 @@ const ClientList = () => {
         setPost(newPost);
       });
   }, []);
+  const uname = userData.map((data) => data.name)
   return (
     <SafeAreaView>
       <AppBar />
       <ScrollView>
         <View>
           {post.map(post => (
+            uname == post.trainer ?
             <Card style={styles.card}>
               <View style={styles.main}>
                 <Text style={styles.text}>Name:</Text>
@@ -60,7 +63,7 @@ const ClientList = () => {
                 <Text style={styles.text1}>Type:</Text>
                 <Text style={styles.text2}>{post.category}</Text>
               </View>
-            </Card>
+            </Card> : null
           ))}
         </View>
       </ScrollView>

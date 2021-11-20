@@ -1,9 +1,17 @@
-import React, {useState} from 'react';
-import {SafeAreaView, ScrollView, View, Text, StyleSheet} from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, ScrollView, View, Text, StyleSheet } from 'react-native';
 import AppBar from './Appbar';
-import {TextInput, Button} from 'react-native-paper';
+import { TextInput, Button } from 'react-native-paper';
 import DropDownPicker from 'react-native-dropdown-picker';
 import firestore from '@react-native-firebase/firestore';
+import { LogBox } from 'react-native';
+import {
+  Select,
+  VStack,
+  CheckIcon,
+  Center,
+  NativeBaseProvider,
+} from "native-base"
 
 const AddPackage = () => {
   const [name, setName] = useState('');
@@ -12,15 +20,9 @@ const AddPackage = () => {
   const [weight, setWeight] = useState('');
   const [trainer, setTrainer] = useState('');
   const [gender, setGender] = useState('');
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: 'Abs', value: 'Abs'},
-    {label: 'Carodic', value: 'Carodic'},
-    {label: 'Muscles', value: 'Muscles'},
-    {label: 'Leg', value: 'Leg'},
-    {label: 'Chest', value: 'Chest'},
-  ]);
+  let [service, setService] = React.useState("")
+  const [post, setPost] = React.useState([]);
+
 
   const submit = () => {
     firestore()
@@ -33,22 +35,34 @@ const AddPackage = () => {
         weight: weight,
         trainer: trainer,
         gender: gender,
-        category: value,
+        category: service,
       })
       .then();
   };
-  console.log(name, age, height, weight, trainer, gender, value)
+
+  React.useEffect(async () => {
+    await firestore()
+      .collection('Trainer')
+      .onSnapshot(snapshot => {
+        const newPost = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPost(newPost);
+      });
+  }, []);
+  console.log(post.map((data) => data.name))
   return (
     <SafeAreaView>
       <AppBar />
-      <ScrollView>
+      <ScrollView nestedScrollEnabled={true}>
         <View style={styles.container}>
           <Text style={styles.head}>Add Package</Text>
           <View>
             <TextInput
               style={styles.textInput}
               mode="outlined"
-              theme={{colors: {text: 'black', primary: '#D49A9A'}}}
+              theme={{ colors: { text: 'black', primary: '#D49A9A' } }}
               label="Name"
               onChangeText={(val) => setName(val)}
               labelValue={name}
@@ -57,7 +71,7 @@ const AddPackage = () => {
             <TextInput
               style={styles.textInput}
               mode="outlined"
-              theme={{colors: {text: 'black', primary: '#D49A9A'}}}
+              theme={{ colors: { text: 'black', primary: '#D49A9A' } }}
               label="Age"
               onChangeText={val => setAge(val)}
               autoCapitalize="none"
@@ -65,7 +79,7 @@ const AddPackage = () => {
             <TextInput
               style={styles.textInput}
               mode="outlined"
-              theme={{colors: {text: 'black', primary: '#D49A9A'}}}
+              theme={{ colors: { text: 'black', primary: '#D49A9A' } }}
               label="Height"
               onChangeText={val => setHeight(val)}
               autoCapitalize="none"
@@ -73,42 +87,76 @@ const AddPackage = () => {
             <TextInput
               style={styles.textInput}
               mode="outlined"
-              theme={{colors: {text: 'black', primary: '#D49A9A'}}}
+              theme={{ colors: { text: 'black', primary: '#D49A9A' } }}
               label="Weight"
               onChangeText={val => setWeight(val)}
               autoCapitalize="none"
             />
-            <TextInput
-              style={styles.textInput}
-              mode="outlined"
-              theme={{colors: {text: 'black', primary: '#D49A9A'}}}
-              label="Trainer Name"
-              onChangeText={val => setTrainer(val)}
-              autoCapitalize="none"
-            />
-            <TextInput
-              style={styles.textInput}
-              mode="outlined"
-              theme={{colors: {text: 'black', primary: '#D49A9A'}}}
-              label="Gender"
-              onChangeText={val => setGender(val)}
-              autoCapitalize="none"
-            />
-            <DropDownPicker
-              dropDownContainerStyle={{
-                width: '64.5%',
-                paddingLeft: '5%',
-                marginLeft: '15%',
-              }}
-              dropDownDirection="TOP"
-              style={styles.textInput}
-              open={open}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-            />
+           
+            <Center flex={1} mb='2' px='3'>
+              <VStack alignItems="center" space={6}>
+                <Select
+                  selectedValue={trainer}
+                  minWidth="300"
+                  // w='100%'
+                  accessibilityLabel="Choose Trainer"
+                  placeholder="Choose Trainer"
+                  _selectedItem={{
+                    bg: "teal.600",
+                    endIcon: <CheckIcon size="5" />,
+                  }}
+                  mt={1}
+                  onValueChange={(itemValue) => setTrainer(itemValue)}
+                >
+                  {post.map((data) => 
+                  <Select.Item label={data.name} value={data.name} />
+                  )}
+                </Select>
+              </VStack>
+            </Center >
+            <Center flex={1} mb='2' px='3'>
+              <VStack alignItems="center" space={6}>
+                <Select
+                  selectedValue={gender}
+                  minWidth="300"
+                  // w='100%'
+                  accessibilityLabel="Choose Gender"
+                  placeholder="Choose Gender"
+                  _selectedItem={{
+                    bg: "teal.600",
+                    endIcon: <CheckIcon size="5" />,
+                  }}
+                  mt={1}
+                  onValueChange={(itemValue) => setGender(itemValue)}
+                >
+                  <Select.Item label='Male' value='male' /> 
+                  <Select.Item label='Female' value='female' /> 
+                </Select>
+              </VStack>
+            </Center >
+            <Center flex={1} px='3'>
+              <VStack alignItems="center" space={6}>
+                <Select
+                  selectedValue={service}
+                  minWidth="300"
+                  // w='100%'
+                  accessibilityLabel="Choose Category"
+                  placeholder="Choose Category"
+                  _selectedItem={{
+                    bg: "teal.600",
+                    endIcon: <CheckIcon size="5" />,
+                  }}
+                  mt={1}
+                  onValueChange={(itemValue) => setService(itemValue)}
+                >
+                  <Select.Item label="Abs" value="Abs" />
+                  <Select.Item label="Carodic" value="Carodic" />
+                  <Select.Item label="Muscles" value="Muscles" />
+                  <Select.Item label="Chest" value="Chest" />
+                  <Select.Item label="Leg" value="Leg" />
+                </Select>
+              </VStack>
+            </Center >
             <Button
               style={styles.btn}
               onPress={() => submit()}
@@ -125,6 +173,7 @@ const AddPackage = () => {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
+    marginBottom: "10%"
   },
   head: {
     marginTop: '2%',

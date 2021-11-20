@@ -10,6 +10,7 @@ import {Provider} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
 import userReducer from './store/userReducer';
 import trainerReducer from './store/trainerReducer';
+import { NativeBaseProvider, Box } from 'native-base';
 const configure = configureStore({
   reducer: {
     user: userReducer,
@@ -19,7 +20,9 @@ const configure = configureStore({
 
 const Fun = () => (
   <Provider store={configure}>
+    <NativeBaseProvider>
     <App />
+    </NativeBaseProvider>
   </Provider>
 );
 

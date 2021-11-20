@@ -35,7 +35,7 @@ const MemberLogin = () => {
             setPost(newPost.filter(x => x.email === email));
           }),
       )
-      .then(async () => {
+      .then( () => {
         if (post) {
           post.map(post => {
             if (post.email !== email) {
