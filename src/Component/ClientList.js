@@ -14,7 +14,7 @@ import {useSelector} from 'react-redux';
 
 const ClientList = () => {
   const [post, setPost] = React.useState([]);
-  const userData = useSelector(state => state.trainer.initialState);
+  const userData = useSelector(state => state.user.initialState);
   React.useEffect(async () => {
     await firestore()
       .collection('addpackage')

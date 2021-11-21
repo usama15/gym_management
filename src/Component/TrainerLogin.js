@@ -12,7 +12,7 @@ import {TextInput} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {loginTrainer} from '../../store/trainerReducer';
+import {loginUser} from '../../store/userReducer';
 
 const TrainerLogin = () => {
   const Navigation = useNavigation();
@@ -31,21 +31,12 @@ const TrainerLogin = () => {
               id: doc.id,
               ...doc.data(),
             }));
-            dispatch(loginTrainer(newPost.filter(x => x.email === email)));
+            dispatch(loginUser(newPost.filter(x => x.email === email)));
             setPost(newPost.filter(x => x.email === email));
           }),
       )
       .then(() => {
-        if (post) {
-          post.map(post => {
-            if (post.email !== email) {
-              alert('You are not Trainer');
-            } else if (post.email === email) {
-              Navigation.navigate('TBottomNav');
-              console.log('yoy are member');
-            }
-          });
-        }
+        Navigation.navigate('TBottomNav');
       })
       .catch(function (e) {
         alert(e);
@@ -94,13 +85,13 @@ const TrainerLogin = () => {
         <Text style={{fontWeight: 'bold'}}>LOGIN</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.loginBtn1}
-        onPress={() => Navigation.navigate('trainerSignup')}>
-        <Text style={({fontfamily: 'poppins'}, {fontWeight: 'bold'})}>
+     
+      <View style={styles.signupbtn}>
+        <Text style={{ marginRight: '1%', }}>Don't have account?</Text>
+        <Text onPress={() => Navigation.navigate('trainerSignup')} style={({ fontfamily: 'poppins' }, { fontWeight: 'bold' })}>
           SIGNUP
         </Text>
-      </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -217,6 +208,11 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     fontFamily: 'San Francisco',
     shadowColor: '#D49A9A',
+  },
+  signupbtn: {
+    flexDirection: 'row',
+    marginTop: '5%',
+
   },
 });
 

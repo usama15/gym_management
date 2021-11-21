@@ -21,14 +21,9 @@ const Trainer = () => {
   const [comment, setComment] = React.useState('');
   const [disable, setDisable] = React.useState(false);
   const userData = useSelector(state => state.user.initialState);
-  const trainerData = useSelector(state => state.trainer.initialState);
   const [cpost, setCpost] = React.useState([]);
 
-  React.useEffect(() => {
-    if (trainerData === []) {
-      setDisable(true);
-    }
-  }, []);
+  
   React.useEffect(async () => {
     await firestore()
       .collection('Trainer')
@@ -56,7 +51,7 @@ const Trainer = () => {
         id: id,
       })
       .then({
-        setComment: setComment(),
+        setComment: setComment(""),
       });
   }
   React.useEffect(async () => {
@@ -94,6 +89,7 @@ const Trainer = () => {
               <View>
                 <View style={styles.com}>
                   <TextInput
+                  value={comment}
                     placeholder="Comment"
                     placeholderTextColor="black"
                     style={styles.ctext}

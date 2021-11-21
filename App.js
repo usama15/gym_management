@@ -25,6 +25,7 @@ import ChestWorkout from './src/Screen/ChestWorkout';
 import LegWorkout from './src/Screen/LegWorkout';
 import MusclesWorkout from './src/Screen/MusclesWorkout';
 import TBottomNav from './src/Component/TBottomNav';
+import UserOrder from './src/Component/UserOrder';
 // import Main_screen from "./src/Screen/Main_Screen";
 const App = () => {
   const Stack = createStackNavigator();
@@ -74,6 +75,11 @@ const App = () => {
         <Stack.Screen
           name="AbsWorkout"
           component={AbsWorkout}
+          options={{headerMode: 'none', headerShown: false}}
+        />
+        <Stack.Screen
+          name="UserOrder"
+          component={UserOrder}
           options={{headerMode: 'none', headerShown: false}}
         />
         <Stack.Screen

@@ -14,7 +14,9 @@ const AppBar = () => {
 
   return (
     <Appbar.Header theme={{colors: {primary: 'white'}}}>
-      <Appbar.Action icon="menu" />
+     <Appbar.Action icon="shopping" 
+      onPress={() => navigation.navigate('UserOrder')}
+      />
       <Image style={styles.logo} source={require('../asset/lastlast.png')} />
       <Appbar.Action
         icon="logout"

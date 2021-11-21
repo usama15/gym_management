@@ -13,9 +13,11 @@ const MemberSignUp = () => {
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [name, setName] = React.useState('');
   const [phone, setPhone] = React.useState('');
+  const [disable, setDisable] = React.useState(false)
 
   const submit = async () => {
     const result = auth().createUserWithEmailAndPassword(email, password);
+    setDisable(true)
 
     firestore()
       .collection('Member')
@@ -27,7 +29,7 @@ const MemberSignUp = () => {
         phone: phone,
         gvalue: gvalue,
         category: 'Member',
-      })
+      }).then(navigation.goBack('memberLogin'))
       .then({
         setName: setName(null),
         setGvalue: setGvalue(null),
@@ -35,7 +37,7 @@ const MemberSignUp = () => {
         setPassword: setPassword(null),
         setConfirmPassword: setConfirmPassword(null),
         setPhone: setPhone(null),
-      }).then(navigation.navigate('memberLogin'))
+      })
   };
   return (
     <SafeAreaView>
@@ -98,6 +100,7 @@ const MemberSignUp = () => {
             </View>
           </RadioButton.Group>
           <Button
+          disabled={disable}
             style={styles.btn}
             mode="contained"
             theme={{colors: {primary: 'white'}}}

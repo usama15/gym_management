@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {TextInput} from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
-import {useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
-import {loginUser} from '../../store/userReducer';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../store/userReducer';
 
 const MemberLogin = () => {
   const Navigation = useNavigation();
@@ -35,17 +35,17 @@ const MemberLogin = () => {
             setPost(newPost.filter(x => x.email === email));
           }),
       )
-      .then( () => {
-        if (post) {
-          post.map(post => {
-            if (post.email !== email) {
-              alert('You are not Member');
-            } else if (post.email === email) {
-              Navigation.navigate('BottomNav');
-              console.log('yoy are member');
-            }
-          });
-        }
+      .then(() => {
+        Navigation.navigate('BottomNav');
+        // if (post) {
+        //   post.map(post => {
+        //     if (post.email !== email) {
+        //       alert('You are not Member');
+        //     } else if (post.email === email) {
+        //       console.log('yoy are member');
+        //     }
+        //   });
+        // }
       })
       .catch(function (e) {
         alert(e);
@@ -66,7 +66,7 @@ const MemberLogin = () => {
           label="Email"
           mode="outlined"
           value={email}
-          theme={{colors: {text: 'black', primary: '#0a217a'}}}
+          theme={{ colors: { text: 'black', primary: '#0a217a' } }}
           onChangeText={val => setEmail(val)}
         />
       </View>
@@ -79,7 +79,7 @@ const MemberLogin = () => {
           value={password}
           onChangeText={val => setPassword(val)}
           maxLength={15}
-          theme={{colors: {text: 'black', primary: '#0a217a'}}}
+          theme={{ colors: { text: 'black', primary: '#0a217a' } }}
           secureTextEntry={true}
         />
       </View>
@@ -91,16 +91,15 @@ const MemberLogin = () => {
       </View>
 
       <TouchableOpacity style={styles.loginBtn1} onPress={() => userLogin()}>
-        <Text style={{fontWeight: 'bold'}}>LOGIN</Text>
+        <Text style={{ fontWeight: 'bold' }}>LOGIN</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.loginBtn1}
-        onPress={() => Navigation.navigate('memberSignup')}>
-        <Text style={({fontfamily: 'poppins'}, {fontWeight: 'bold'})}>
+      <View style={styles.signupbtn}>
+        <Text style={{ marginRight: '1%', }}>Don't have account?</Text>
+        <Text onPress={() => Navigation.navigate('memberSignup')} style={({ fontfamily: 'poppins' }, { fontWeight: 'bold' })}>
           SIGNUP
         </Text>
-      </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -199,7 +198,7 @@ const styles = StyleSheet.create({
     shadowColor: '#87C7D8',
     shadowOpacity: 3,
     elevation: 3,
-    shadowOffset: {width: 1, height: 2},
+    shadowOffset: { width: 1, height: 2 },
   },
   googlebtn: {
     width: '80%',
@@ -207,7 +206,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     shadowOpacity: 3,
     elevation: 3,
-    shadowOffset: {width: 1, height: 5},
+    shadowOffset: { width: 1, height: 5 },
     borderRadius: 25,
   },
   logo1: {
@@ -218,6 +217,12 @@ const styles = StyleSheet.create({
     fontFamily: 'San Francisco',
     shadowColor: '#D49A9A',
   },
+  signupbtn: {
+    flexDirection: 'row',
+    marginTop: '5%',
+
+  },
+
 });
 
 export default MemberLogin;

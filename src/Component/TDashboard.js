@@ -9,7 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const TDashboard = () => {
   const navigation = useNavigation();
-  const userData = useSelector(state => state.trainer.initialState);
+  const userData = useSelector(state => state.user.initialState);
   return (
     <SafeAreaView>
       <ScrollView>

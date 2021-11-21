@@ -12,8 +12,12 @@ import {
   Center,
   NativeBaseProvider,
 } from "native-base"
+import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 const AddPackage = () => {
+  const navigation = useNavigation();
+  const userData = useSelector(state => state.user.initialState);
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [height, setHeight] = useState('');
@@ -22,22 +26,32 @@ const AddPackage = () => {
   const [gender, setGender] = useState('');
   let [service, setService] = React.useState("")
   const [post, setPost] = React.useState([]);
-
+  const [type, setType] = React.useState('');
 
   const submit = () => {
     firestore()
       .collection('addpackage')
       .doc()
       .set({
-        name: name,
+        name: userData[0].name,
+        email: userData[0].email,
         age: age,
         height: height,
         weight: weight,
         trainer: trainer,
         gender: gender,
         category: service,
+        // WorkoutType: type,
       })
-      .then();
+      .then({
+        setAge: setAge(''),
+        setHeight: setHeight(''),
+        setWeight: setWeight(''),
+        setTrainer: setTrainer(''),
+        setGender: setGender(''),
+        setService: setService(''),
+        // setType:setType('')
+      })
   };
 
   React.useEffect(async () => {
@@ -51,7 +65,6 @@ const AddPackage = () => {
         setPost(newPost);
       });
   }, []);
-  console.log(post.map((data) => data.name))
   return (
     <SafeAreaView>
       <AppBar />
@@ -59,20 +72,13 @@ const AddPackage = () => {
         <View style={styles.container}>
           <Text style={styles.head}>Add Package</Text>
           <View>
-            <TextInput
-              style={styles.textInput}
-              mode="outlined"
-              theme={{ colors: { text: 'black', primary: '#D49A9A' } }}
-              label="Name"
-              onChangeText={(val) => setName(val)}
-              labelValue={name}
-              autoCapitalize="none"
-            />
+
             <TextInput
               style={styles.textInput}
               mode="outlined"
               theme={{ colors: { text: 'black', primary: '#D49A9A' } }}
               label="Age"
+              value={age}
               onChangeText={val => setAge(val)}
               autoCapitalize="none"
             />
@@ -80,13 +86,15 @@ const AddPackage = () => {
               style={styles.textInput}
               mode="outlined"
               theme={{ colors: { text: 'black', primary: '#D49A9A' } }}
+              value={height}
               label="Height"
               onChangeText={val => setHeight(val)}
               autoCapitalize="none"
-            />
+              />
             <TextInput
               style={styles.textInput}
               mode="outlined"
+              value={weight}
               theme={{ colors: { text: 'black', primary: '#D49A9A' } }}
               label="Weight"
               onChangeText={val => setWeight(val)}
@@ -176,10 +184,10 @@ const styles = StyleSheet.create({
     marginBottom: "10%"
   },
   head: {
-    marginTop: '2%',
+    marginTop: '5%',
     alignSelf: 'center',
     fontSize: 32,
-    marginBottom: '3%',
+    marginBottom: '10%',
   },
   textInput: {
     justifyContent: 'center',

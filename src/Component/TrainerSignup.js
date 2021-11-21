@@ -15,8 +15,9 @@ const TrainerSignUp = () => {
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [name, setName] = React.useState('');
   const [phone, setPhone] = React.useState('');
-
+  const [disable, setDisable] = React.useState(false)
   const submit = async () => {
+    setDisable(true)
     const result = auth().createUserWithEmailAndPassword(email, password);
 
     firestore()
@@ -29,7 +30,7 @@ const TrainerSignUp = () => {
         phone: phone,
         gvalue: gvalue,
         value: value,
-      })
+      }).then(navigation.goBack('trainerLogin'))
       .then({
         setName: setName(null),
         setGvalue: setGvalue(null),
@@ -38,7 +39,7 @@ const TrainerSignUp = () => {
         setPassword: setPassword(null),
         setConfirmPassword: setConfirmPassword(null),
         setPhone: setPhone(null),
-      });
+      })
   };
   return (
     <SafeAreaView>
@@ -107,13 +108,16 @@ const TrainerSignUp = () => {
             <View style={styles.radio}>
               <RadioButton value="General Trainer" />
               <Text style={styles.lab}>General Trainer</Text>
-              <RadioButton style={styles.sec} value="Personal Traine" />
+              <RadioButton style={styles.sec} value="Personal Trainer" />
               <Text style={styles.lab}>Personal Trainer</Text>
+              <RadioButton style={styles.sec} value="Both" />
+              <Text style={styles.lab}>Both</Text>
             </View>
           </RadioButton.Group>
           <Button
             style={styles.btn}
             mode="contained"
+            disabled={disable}
             theme={{colors: {primary: 'white'}}}
             onPress={() => submit()}>
             Finish
@@ -131,7 +135,7 @@ const styles = StyleSheet.create({
     height: 800,
   },
   sec: {
-    marginHorizontal: '100%',
+    // marginHorizontal: '100%',
   },
   lab: {
     marginTop: '2%',
@@ -144,9 +148,9 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   radio: {
-    // flex: 1,
+    width:'88%',
     flexDirection: 'row',
-    marginHorizontal: '10%',
+    alignSelf:'center',
   },
   textbar: {
     width: '90%',
